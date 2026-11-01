@@ -283,6 +283,270 @@ function stopRecording() {
 }
 </script>
 
+<!-- Shadowing AI V2 Upgrade -->
+<style>
+body {
+  padding-bottom: 125px;
+}
+#v2bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #19281c;
+  color: #eef5e7;
+  padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 25px #0003;
+}
+#v2time {
+  font-size: 12px;
+  color: #b8d5aa;
+  margin-bottom: 7px;
+}
+#v2progress {
+  height: 5px;
+  background: #465946;
+  border-radius: 9px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+#v2fill {
+  height: 100%;
+  width: 0%;
+  background: #a5e57d;
+}
+#v2buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 4px;
+}
+#v2buttons button {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  color: white;
+  padding: 7px 1px;
+  font-size: 12px;
+  margin: 0;
+}
+#v2buttons button span {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 4px;
+}
+#v2buttons button.on {
+  color: #adf18d;
+}
+#lines .line.playing {
+  background: #e0f3da;
+  border: 2px solid #67a747;
+}
+#v2current {
+  background: #edf5e8;
+  border-radius: 13px;
+  padding: 14px;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+#v2saved {
+  background: white;
+  padding: 15px;
+  border-radius: 14px;
+  margin: 15px 0;
+}
+</style>
+
+<div id="v2bar">
+  <div id="v2time">00:00 / 00:00</div>
+  <div id="v2progress">
+    <div id="v2fill"></div>
+  </div>
+  <div id="v2buttons">
+    <button id="v2pin" onclick="v2Pin()">
+      <span>📌</span>固定
+    </button>
+    <button id="v2loop" class="on"
+      onclick="v2Loop()">
+      <span>🔁</span>重複
+    </button>
+    <button id="v2speed" onclick="v2Speed()">
+      <span>⚡</span>1×
+    </button>
+    <button onclick="v2Play()">
+      <span>⏯</span>播放
+    </button>
+    <button id="v2mic" onclick="v2Record()">
+      <span>🎙️</span>錄音
+    </button>
+  </div>
+</div>
+
+<script>
+const v2SavedKey = "shadowing-v2-saved";
+let v2Last = -1;
+
+function v2Time(t) {
+  t = Math.max(0, Math.floor(t || 0));
+  return String(Math.floor(t / 60)).padStart(2,"0")
+    + ":" + String(t % 60).padStart(2,"0");
+}
+
+function v2Loop() {
+  const box = document.getElementById("loop");
+  box.checked = !box.checked;
+  document.getElementById("v2loop")
+    .classList.toggle("on",box.checked);
+}
+
+function v2Speed() {
+  const box = document.getElementById("speed");
+  const speeds = [0.5,0.75,1,1.25,1.5];
+  const current = Number(box.value);
+  const pos = speeds.indexOf(current);
+  const nextSpeed = speeds[(pos+1)%speeds.length];
+
+  box.value = String(nextSpeed);
+  speed();
+  document.getElementById("v2speed").innerHTML =
+    "<span>⚡</span>" + nextSpeed + "×";
+}
+
+function v2Play() {
+  if (!player) return;
+
+  const state = player.getPlayerState?.();
+  if (state === 1) {
+    pause();
+  } else {
+    play();
+  }
+}
+
+function v2Record() {
+  const recording = document.getElementById("recordStart");
+  const stopping = document.getElementById("recordStop");
+
+  if (recorder && recorder.state === "recording") {
+    stopRecording();
+  } else if (recording && stopping) {
+    startRecording();
+    document.getElementById("recordStatus")
+      .scrollIntoView({behavior:"smooth",block:"center"});
+  }
+}
+
+function v2GetSaved() {
+  try {
+    return JSON.parse(localStorage.getItem(v2SavedKey)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function v2Pin() {
+  if (selected < 0 || !cues[selected]) {
+    alert("請先點選一句英文字幕");
+    return;
+  }
+
+  const cue = cues[selected];
+  const item = {
+    text:cue.text,
+    start:cue.start,
+    end:cue.end,
+    url:document.getElementById("url").value
+  };
+
+  let list = v2GetSaved();
+  const key = x => x.url + "|" + x.start + "|" + x.text;
+  const index = list.findIndex(x => key(x) === key(item));
+
+  if (index >= 0) {
+    list.splice(index,1);
+  } else {
+    list.unshift(item);
+  }
+
+  try {
+    localStorage.setItem(v2SavedKey,JSON.stringify(list));
+  } catch {
+    alert("瀏覽器無法儲存收藏");
+  }
+  v2ShowSaved();
+}
+
+function v2ShowSaved() {
+  const root = document.getElementById("v2savedList");
+  if (!root) return;
+
+  root.replaceChildren();
+  const list = v2GetSaved();
+
+  if (!list.length) {
+    root.textContent = "目前沒有收藏的句子";
+    return;
+  }
+
+  list.forEach(item => {
+    const button = document.createElement("button");
+    button.className = "line";
+    button.textContent = v2Time(item.start) + " · " + item.text;
+    button.onclick = () => {
+      document.getElementById("url").value = item.url;
+      const index = cues.findIndex(c =>
+        Math.abs(c.start-item.start) < 0.1 &&
+        c.text === item.text
+      );
+      if (index >= 0) {
+        choose(index);
+      } else {
+        alert("請先載入這部影片與對應字幕");
+      }
+    };
+    root.appendChild(button);
+  });
+}
+
+function v2Sync() {
+  if (!player?.getCurrentTime || !cues.length) return;
+
+  const time = player.getCurrentTime();
+  const total = player.getDuration?.() || 0;
+  document.getElementById("v2time").textContent =
+    v2Time(time) + " / " + v2Time(total);
+
+  document.getElementById("v2fill").style.width =
+    (total ? Math.min(100,time/total*100) : 0) + "%";
+
+  const index = cues.findIndex(c =>
+    time >= c.start && time < c.end
+  );
+
+  const buttons = document.querySelectorAll("#lines .line");
+  buttons.forEach((b,i) => {
+    b.classList.toggle("playing",i===index);
+  });
+
+  if (index >= 0 && index !== v2Last) {
+    v2Last = index;
+    if (selected !== index) {
+      selected = index;
+    }
+  }
+}
+
+const v2Saved = document.createElement("section");
+v2Saved.id = "v2saved";
+v2Saved.innerHTML =
+  "<h2>📌 我的收藏句子</h2><div id='v2savedList'></div>";
+
+document.querySelector("main").appendChild(v2Saved);
+v2ShowSaved();
+setInterval(v2Sync,250);
+</script>
+<!-- End Shadowing AI V2 -->
+
 </body>
 </html>
 
