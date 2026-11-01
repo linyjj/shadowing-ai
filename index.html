@@ -169,6 +169,120 @@ function repeatLine(){if(selected>=0)choose(selected)}
 function previous(){if(cues.length)choose(Math.max(0,selected-1))}
 function next(){if(cues.length)choose(Math.min(cues.length-1,selected+1))}
 </script>
+  
+<section>
+  <h2>🎙️ 我的英文跟讀錄音</h2>
+  <p>聽完原聲後，錄下自己的發音。</p>
+
+  <div class="row">
+    <button id="recordStart" onclick="startRecording()">
+      🔴 開始錄音
+    </button>
+    <button id="recordStop" onclick="stopRecording()" disabled>
+      ⏹ 停止錄音
+    </button>
+  </div>
+
+  <p id="recordStatus">尚未錄音</p>
+
+  <audio id="myRecording" controls
+    style="width:100%;margin-top:10px"></audio>
+
+  <p>
+    <small>
+      錄音只會保存在目前瀏覽器頁面中，
+      不會自動上傳到伺服器。
+      重新整理後可能消失。
+    </small>
+  </p>
+</section>
+
+<script>
+let recorder = null;
+let recordingChunks = [];
+let micStream = null;
+let recordingURL = null;
+
+async function startRecording() {
+  const message = document.getElementById("recordStatus");
+
+  if (!navigator.mediaDevices?.getUserMedia ||
+      !window.MediaRecorder) {
+    message.textContent = "目前瀏覽器不支援錄音";
+    return;
+  }
+
+  try {
+    micStream = await navigator.mediaDevices.getUserMedia({
+      audio: true
+    });
+
+    const options = {};
+    if (MediaRecorder.isTypeSupported("audio/mp4")) {
+      options.mimeType = "audio/mp4";
+    } else if (
+      MediaRecorder.isTypeSupported("audio/webm")
+    ) {
+      options.mimeType = "audio/webm";
+    }
+
+    recorder = new MediaRecorder(micStream, options);
+    recordingChunks = [];
+
+    recorder.ondataavailable = event => {
+      if (event.data.size > 0) {
+        recordingChunks.push(event.data);
+      }
+    };
+
+    recorder.onstop = () => {
+      const blob = new Blob(recordingChunks, {
+        type: recorder.mimeType || "audio/mp4"
+      });
+
+      if (recordingURL) {
+        URL.revokeObjectURL(recordingURL);
+      }
+
+      recordingURL = URL.createObjectURL(blob);
+      document.getElementById("myRecording").src =
+        recordingURL;
+
+      message.textContent = "✅ 錄音完成！可以按播放聽自己的聲音";
+
+      if (micStream) {
+        micStream.getTracks().forEach(track => track.stop());
+      }
+    };
+
+    if (typeof stopLoop === "function") stopLoop();
+    if (typeof pause === "function") pause();
+
+    recorder.start();
+
+    document.getElementById("recordStart").disabled = true;
+    document.getElementById("recordStop").disabled = false;
+    message.textContent = "🔴 正在錄音中…";
+
+  } catch (error) {
+    message.textContent =
+      "無法錄音，請確認已允許麥克風權限";
+    if (micStream) {
+      micStream.getTracks().forEach(track => track.stop());
+    }
+  }
+}
+
+function stopRecording() {
+  if (recorder && recorder.state === "recording") {
+    recorder.stop();
+  }
+
+  document.getElementById("recordStart").disabled = false;
+  document.getElementById("recordStop").disabled = true;
+}
+</script>
+
 </body>
 </html>
 
