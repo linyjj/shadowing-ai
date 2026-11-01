@@ -1,12 +1,147 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shadowing AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadowing AI</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f7fb;
+  margin: 0;
+  padding: 20px;
+  color: #202638;
+}
+main { max-width: 650px; margin: auto; }
+h1 { text-align: center; }
+input, button, select {
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+input { width: 100%; border: 1px solid #ccc; }
+button {
+  border: 0;
+  background: #345fe5;
+  color: white;
+  margin-top: 10px;
+}
+#player {
+  width: 100%;
+  aspect-ratio: 16/9;
+  margin-top: 20px;
+  background: #111;
+}
+.controls { display: flex; gap: 8px; }
+.controls button { flex: 1; }
+p { line-height: 1.7; }
+</style>
 </head>
 <body>
-  <h1>🎧 Shadowing AI</h1>
-  <p>我的英文跟讀網站建立成功！</p>
+<main>
+<h1>🎧 Shadowing AI</h1>
+<p>貼上 YouTube 影片連結，開始練習英文。</p>
+
+<input id="url" placeholder="貼上 YouTube 連結">
+
+<button onclick="loadVideo()">載入影片</button>
+
+<div id="player"></div>
+
+<h3>播放控制</h3>
+<div class="controls">
+  <button onclick="playVideo()">▶ 播放</button>
+  <button onclick="pauseVideo()">⏸ 暫停</button>
+</div>
+
+<p>播放速度：</p>
+<select id="speed" onchange="setSpeed()">
+  <option value="0.5">0.5×</option>
+  <option value="0.75">0.75×</option>
+  <option value="1" selected>1×</option>
+  <option value="1.25">1.25×</option>
+  <option value="1.5">1.5×</option>
+</select>
+
+<p id="status">尚未載入影片</p>
+</main>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player = null;
+let ready = false;
+
+function onYouTubeIframeAPIReady() {
+  ready = true;
+}
+
+function getVideoId(text) {
+  try {
+    const url = new URL(text);
+    const host = url.hostname.toLowerCase();
+    if (host === "youtu.be" ||
+        host === "www.youtu.be") {
+      return url.pathname.split("/")[1];
+    }
+    if (["youtube.com", "www.youtube.com",
+         "m.youtube.com"].includes(host)) {
+      if (url.pathname === "/watch") {
+        return url.searchParams.get("v");
+      }
+      if (url.pathname.startsWith("/shorts/") ||
+          url.pathname.startsWith("/embed/")) {
+        return url.pathname.split("/")[2];
+      }
+    }
+  } catch(e) {}
+  return null;
+}
+
+function loadVideo() {
+  const id = getVideoId(
+    document.getElementById("url").value.trim()
+  );
+  const status = document.getElementById("status");
+
+  if (!id) {
+    status.textContent = "請貼上有效的 YouTube 連結";
+    return;
+  }
+  if (!ready || !window.YT || !YT.Player) {
+    status.textContent = "播放器尚未準備好，請稍後重試";
+    return;
+  }
+  if (player && player.destroy) player.destroy();
+
+  player = new YT.Player("player", {
+    videoId: id,
+    playerVars: { playsinline: 1 },
+    events: {
+      onReady: () => {
+        status.textContent = "影片已載入，請點播放";
+      },
+      onError: () => {
+        status.textContent = "影片無法播放，可能禁止嵌入";
+      }
+    }
+  });
+}
+
+function playVideo() {
+  if (player && player.playVideo) player.playVideo();
+}
+function pauseVideo() {
+  if (player && player.pauseVideo) player.pauseVideo();
+}
+function setSpeed() {
+  if (player && player.setPlaybackRate) {
+    player.setPlaybackRate(
+      Number(document.getElementById("speed").value)
+    );
+  }
+}
+</script>
 </body>
 </html>
