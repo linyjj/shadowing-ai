@@ -59,8 +59,13 @@ def transcript(url: str):
             "lines": lines
         }
 
-    except Exception:
+    
+    except Exception as e:
         raise HTTPException(
             status_code=502,
-            detail="暫時無法取得字幕，可能是影片限制或雲端 IP 被封鎖"
+            detail={
+                "error_type": type(e).__name__,
+                "message": "Transcript extraction failed"
+            }
         )
+
