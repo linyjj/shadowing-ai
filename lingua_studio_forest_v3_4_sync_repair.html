@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f5ee"><title>LinguaStudio · Forest V2</title><style>
+:root{--bg:#f6f6ef;--paper:#fffef9;--ink:#244b39;--muted:#667b69;--sage:#e3eddf;--line:#cfddcb;--gold:#e7b95f;--dark:#253d34;--shadow:0 3px 16px #2845320e}*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif}body.night{--bg:#17251e;--paper:#24372c;--ink:#f2f0e7;--muted:#c0d0be;--sage:#304839;--line:#48624d;--dark:#16251d;--shadow:none}button,input,select,textarea{font:inherit}button,select{cursor:pointer}button{border:1px solid var(--line);background:var(--sage);color:var(--ink);border-radius:12px;padding:9px 10px;min-height:38px}button:disabled{opacity:.45}button.active{background:#b9d6b5;border-color:#5c956a;color:#173b29}body.night button.active{background:#42694d;color:white}button.primary{background:var(--gold);color:#253b2f;border-color:#d7a954}header{display:flex;align-items:center;justify-content:space-between;padding:13px max(12px,env(safe-area-inset-right));gap:8px;background:var(--paper);border-bottom:1px solid var(--line)}.brand{font:700 26px Georgia,serif;letter-spacing:-1px}.brand span{color:#b48b3e}.tag{font-size:10px;letter-spacing:3px;color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}main{max-width:1280px;margin:auto;padding:10px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.card{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:12px;box-shadow:var(--shadow);min-width:0}.playerCard{padding:0;overflow:hidden}.playerFrame{position:relative;aspect-ratio:16/9;background:linear-gradient(130deg,#2a4739,#526d50);overflow:hidden}.playerFrame video,.playerFrame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.empty{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:#f8f8ed;padding:16px}.empty strong{font:700 clamp(22px,5vw,38px) Georgia,serif}.overlay{position:absolute;bottom:7%;left:2%;right:2%;z-index:3;text-align:center;pointer-events:none;text-shadow:0 2px 5px #000,0 1px 12px #000;background:linear-gradient(transparent,#1116);padding:8px 4px}.overlay.hidden{display:none}.overlay .en{font-size:clamp(17px,3.5vw,30px);font-weight:700;color:#fff;line-height:1.3}.overlay .zh{font-size:clamp(13px,2.5vw,19px);color:#f4e9d9;margin-top:4px}.overlay .word{pointer-events:auto;cursor:pointer;display:inline-block;padding:0 1px}.overlay .word.chosen{color:#ffd77e;background:#352b12b0;border-radius:4px}.playerControls{padding:7px 8px 9px}.six{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}.six button{padding:5px 1px;min-width:0;min-height:45px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1px}.six .ico{font-size:19px;line-height:21px}.six .lbl{font-size:10px;white-space:nowrap}.meta{display:flex;justify-content:space-between;align-items:center;gap:5px;margin-top:5px;flex-wrap:wrap}.meta button{padding:4px 8px;min-height:29px;font-size:12px}.meta input[type=range]{min-width:30px;flex:1;accent-color:#7eac80}.transcript{max-height:340px;overflow:auto;overscroll-behavior:contain}.transcript h3,.card h3{margin:0 0 9px;font-size:17px}.line{padding:9px;border-radius:10px;margin:4px 0;border:1px solid transparent;cursor:pointer;font-size:14px;overflow-wrap:anywhere}.line.current{background:var(--sage);border-color:#8fb696}.line small{color:var(--muted);display:block;font-size:11px;margin-bottom:4px}.line .translation{font-size:12px;color:var(--muted);margin-top:4px}.line .star{float:right;background:transparent;border:0;min-height:0;padding:0 4px}.layout{display:contents}.row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.field{display:grid;gap:5px;margin:9px 0}.field label{font-size:12px;color:var(--muted)}input:not([type=range]):not([type=file]),select,textarea{width:100%;min-width:0;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:11px;padding:10px}input[type=file]{max-width:100%;font-size:12px}textarea{resize:vertical}.pill{border-radius:20px}.collapse{width:100%;text-align:left;display:flex;justify-content:space-between;font-weight:650}.sectionBody{padding-top:10px}.hidden{display:none!important}.wordPopup{position:fixed;z-index:20;left:12px;right:12px;bottom:max(14px,env(safe-area-inset-bottom));background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 8px 35px #0004;max-width:450px;margin:auto}.wordPopup .wordHead{font:700 26px Georgia,serif}.recbar{height:6px;background:var(--line);border-radius:10px;overflow:hidden;margin:10px 0}.recbar i{display:block;width:0;height:100%;background:var(--gold)}.toolbar{display:flex;gap:5px;flex-wrap:wrap}.toolbar button{font-size:12px}.status{font-size:12px;color:var(--muted)}.settingsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.toggle{display:flex;align-items:center;gap:6px;font-size:12px}.toggle input{accent-color:#4b8c60}.smallselect{width:auto!important;max-width:130px;padding:5px!important;font-size:12px}.srtTime{font-variant-numeric:tabular-nums}.transcriptTools{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.transcriptTools input{flex:1;min-width:90px}.recbuttons{display:flex;gap:6px;flex-wrap:wrap}.recbuttons button{flex:1}.note{color:var(--muted);font-size:12px;line-height:1.6}details{margin-top:8px}summary{cursor:pointer}.compactLabel{font-size:12px}.playerSide{min-width:0}.sideTop{display:flex;justify-content:space-between;align-items:center;gap:6px}.sideTop button{font-size:11px;padding:4px 8px;min-height:28px}.modeSelect{width:auto!important;max-width:118px;padding:5px!important;font-size:12px}
+@media(min-width:750px){main{grid-template-columns:minmax(0,1.65fr) minmax(270px,.85fr);align-items:start}.layout{display:block}.playerSide{grid-column:1}.transcriptCard{grid-column:2;grid-row:1}.bottomCards{grid-column:1/-1}.transcript{max-height:65vh}}
+@media(orientation:landscape) and (max-height:650px) and (min-width:550px){header{padding:5px 12px}.brand{font-size:18px}.tag{display:none}main{display:grid;grid-template-columns:minmax(0,1fr) minmax(170px,30%);padding:5px;gap:6px;align-items:start}.playerSide{grid-column:1;grid-row:1}.transcriptCard{grid-column:2;grid-row:1;padding:7px}.transcript{max-height:calc(100dvh - 95px)}.bottomCards{grid-column:1/-1}.playerControls{padding:4px}.six button{min-height:36px;padding:2px}.six .ico{font-size:16px}.six .lbl{font-size:9px}.meta{margin-top:2px}.overlay .en{font-size:clamp(14px,2vw,23px)}.overlay .zh{font-size:12px}body.hideSide .transcriptCard{display:none}body.hideSide main{grid-template-columns:minmax(0,1fr)}body.hideSide .playerSide{grid-column:1}}
+@media(max-width:400px){.six{gap:2px}.six button{border-radius:8px}.six .lbl{font-size:9px}.brand{font-size:23px}.card{padding:10px}.playerCard{padding:0}}
+
+/* V2.1 — compact mobile typography and single-line controls */
+body{font-size:13px;line-height:1.4}
+header{padding-top:9px;padding-bottom:9px}
+.brand{font-size:22px}.tag{font-size:9px;letter-spacing:2px}
+.card{padding:9px;border-radius:13px}.card h3,.transcript h3{font-size:15px;margin-bottom:6px}
+button{font-size:12px;padding:6px 7px;min-height:32px;border-radius:9px;white-space:nowrap}
+.six{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+.six button{height:36px;min-height:36px;padding:3px 0;gap:0;overflow:hidden}
+.six .ico{font-size:16px;line-height:17px;font-weight:600}
+.six .lbl{font-size:9px;line-height:12px;white-space:nowrap}
+.playerControls{padding:5px 6px 6px}
+.meta{flex-wrap:nowrap;gap:3px}.meta button{padding:3px 5px;min-height:26px;font-size:10px}
+.meta .tiny{font-size:10px;white-space:nowrap}.modeSelect{max-width:76px;font-size:10px;padding:3px!important}
+.line{padding:7px;font-size:12px;margin:2px 0}.line small{font-size:10px}
+.row{gap:5px}.toolbar{gap:4px}.toolbar button{font-size:11px}
+.field{margin:6px 0}.field label,.note,.status{font-size:11px}
+input:not([type=range]):not([type=file]),select,textarea{padding:7px;font-size:12px}
+.recbuttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;flex-wrap:nowrap}
+.recbuttons button{font-size:11px;padding:5px 2px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:400px){.six .ico{font-size:15px}.six .lbl{font-size:9px}.six button{min-height:34px;height:34px}.brand{font-size:20px}.card{padding:8px}}
+@media(orientation:landscape) and (max-height:650px) and (min-width:550px){.six button{height:30px;min-height:30px}.six .ico{font-size:13px;line-height:14px}.six .lbl{font-size:8px;line-height:10px}.playerControls{padding:3px 5px}.meta .tiny{font-size:9px}.card{padding:6px}}
+
+/* V2.2 ultra-slim controls and dense mobile layout */
+.playerControls{padding:3px 5px 4px!important}
+.six{gap:2px!important}
+.six button{height:29px!important;min-height:29px!important;padding:0 2px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:2px!important;border-radius:6px!important;font-size:10px!important;white-space:nowrap!important}
+.six .ico{font-size:14px!important;line-height:1!important}
+.six .lbl{font-size:10px!important;line-height:1!important;white-space:nowrap!important}
+.meta{margin-top:3px!important;gap:3px!important;flex-wrap:nowrap!important}
+.meta button{min-height:23px!important;padding:2px 4px!important;font-size:10px!important}
+.modeSelect{font-size:10px!important;max-width:76px!important;padding:3px 1px!important}
+.card{border-radius:11px!important;padding:8px!important}
+.playerCard{padding:0!important}
+main{gap:7px!important;padding:7px!important}
+.card h3,.transcript h3{font-size:14px!important;margin-bottom:5px!important}
+.line{padding:6px!important;margin:2px 0!important;font-size:12px!important}
+.line small{font-size:10px!important;margin-bottom:2px!important}
+.brand{font-size:20px!important}
+header{padding:7px 10px!important}
+.tag{font-size:8px!important}
+.note{font-size:11px!important;line-height:1.45!important}
+.recbuttons button{min-height:29px!important;padding:3px 2px!important;font-size:10px!important}
+.recbar{margin:5px 0!important}
+.sectionBody{padding-top:6px!important}
+@media (orientation:landscape) and (max-height:650px) and (min-width:550px){.six button{height:25px!important;min-height:25px!important}.six .ico{font-size:12px!important}.six .lbl{font-size:9px!important}.playerControls{padding:2px 4px!important}}
+@media(max-width:370px){.six .ico{font-size:12px!important}.six .lbl{font-size:9px!important}.six button{gap:1px!important}}
+
+.quickModes{display:flex;align-items:center;gap:10px;padding:4px 2px;font-size:11px;color:var(--muted)}.quickModes label{display:flex;align-items:center;gap:5px;min-width:0;white-space:nowrap}.quickModes select{width:auto!important;max-width:104px;padding:3px!important;font-size:11px;border-radius:7px}.quickModes input{width:clamp(70px,22vw,160px);accent-color:#568466}.transcriptExpand{width:100%;margin-top:5px;padding:5px;min-height:28px;font-size:11px;border-radius:8px}.wordPopup{white-space:pre-line}.overlay .word{position:relative}.six button{white-space:nowrap}.recbuttons button{font-size:11px;padding:5px 3px;min-height:31px}.note{font-size:11px}.line{padding:6px;margin:2px 0}.transcript{max-height:250px} @media (orientation:landscape) and (max-height:650px){.transcript{max-height:calc(100dvh - 110px)}.quickModes{padding:2px 0}}
+.speedSelect{width:61px!important;min-width:61px!important;max-width:61px!important;font-size:10px!important;padding:3px 1px!important;border-radius:8px!important;flex-shrink:0} .meta #seek{min-width:12px!important} 
+#restoreSide{display:none;position:fixed;right:8px;top:38%;z-index:40;background:var(--gold);color:#263d32;border:1px solid #b8934a;padding:9px 7px;border-radius:12px 0 0 12px;font-size:12px;box-shadow:0 2px 10px #0003}
+.calPanel{border:1px solid var(--line);border-radius:12px;background:var(--sage);padding:9px;margin:7px 0}.calHead{display:flex;align-items:center;justify-content:space-between}.calHead button{min-height:27px;padding:2px 8px}.calLine{display:block;width:100%;max-width:100%;margin:5px 0;font-size:12px;padding:6px}.calActions{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}.calActions button{min-height:29px;padding:4px 8px;font-size:11px}.calPanel p{margin:5px 0;line-height:1.5}.quickModes{gap:5px!important;padding:2px 0!important;justify-content:flex-start}.quickModes label{gap:3px!important}.quickModes select{max-width:77px!important;padding:2px!important}.quickModes input{width:clamp(65px,19vw,120px)!important}.meta{gap:3px!important}.speedSelect{width:58px!important;min-width:58px!important;padding:2px 0!important}
+.syncQuick{display:flex;align-items:center;gap:5px;padding:4px 5px;font-size:10px;white-space:nowrap;overflow:hidden}.syncQuick button{min-height:27px;padding:3px 7px;font-size:11px;border-radius:8px}.syncQuick #syncHint{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}.syncQuick #syncReset{font-size:10px;padding:3px 5px}@media(max-width:450px){.syncQuick{gap:3px}.syncQuick button{padding:3px 5px}}
+</style></head><body><header><div><div class="brand">Lingua<span>Studio</span></div><div class="tag">WATCH · LISTEN · SPEAK</div></div><div class="row"><button id="themeBtn" class="pill">☾ 夜間</button><button id="helpBtn" title="操作說明">?</button></div></header><main>
+<div class="playerSide"><section class="card playerCard"><div class="playerFrame" id="playerFrame"><div class="empty" id="empty"><strong>Your story starts here.</strong><p>選擇影片來源，開始沉浸式英文學習</p></div><video id="localVideo" playsinline preload="metadata" class="hidden"></video><div id="ytHolder" class="hidden" style="position:absolute;inset:0"></div><div id="biliHolder" class="hidden" style="position:absolute;inset:0"></div><div class="overlay hidden" id="overlay"><div class="en" id="overlayEn"></div><div class="zh" id="overlayZh"></div></div></div><div class="playerControls"><div class="six"><button id="prevBtn"><span class="ico">‹</span><span class="lbl">上句</span></button><button id="playBtn" class="primary"><span class="ico" id="playIcon">▶</span><span class="lbl">播放</span></button><button id="nextBtn"><span class="ico">›</span><span class="lbl">下句</span></button><button id="loopBtn"><span class="ico">↻</span><span class="lbl">循環</span></button><button id="recQuick"><span class="ico">◉</span><span class="lbl">錄音</span></button><button id="translateBtn"><span class="ico">文</span><span class="lbl">翻譯</span></button></div><div class="syncQuick"><span>字幕同步</span><button type="button" id="syncFast">－ 提早</button><button type="button" id="syncSlow">＋ 延後</button><label style="display:flex;align-items:center;gap:3px;flex-shrink:0">秒數 <input id="syncExact" type="number" step="0.1" inputmode="decimal" value="0" aria-label="目前字幕偏移秒數" style="width:64px;min-height:27px;padding:2px 4px;font-size:12px;border-radius:7px"></label><span id="syncHint" aria-live="polite">播放中可直接調整</span><button type="button" id="syncReset" title="清除這部影片的同步設定">重設</button></div><div class="quickModes"><label>播放 <select id="quickPlay"><option value="continuous">連續</option><option value="pause">逐句暫停</option><option value="loop">單句循環</option></select></label><label>字幕高度 <input id="captionHeight" type="range" min="2" max="55" value="7" aria-label="調整字幕高度"></label></div><div class="meta"><span class="tiny srtTime" id="clock">00:00 / 00:00</span><input id="seek" type="range" min="0" max="100" value="0" aria-label="影片進度"><select id="subtitleMode" class="modeSelect" aria-label="字幕模式"><option value="en">英字幕</option><option value="zh">中文字幕</option><option value="both">雙語字幕</option><option value="off">隱藏字幕</option></select><select id="speedSelect" class="speedSelect" aria-label="播放速度"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1.0×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2.0×</option></select><button id="fullBtn" title="放大影片">⛶</button></div></div></section><section class="card" style="margin-top:10px"><div class="sideTop"><h3 style="margin:0">跟讀錄音</h3><span class="status" id="recStatus">準備就緒</span></div><div class="recbar" role="progressbar" aria-label="錄音剩餘時間" aria-valuemin="0" aria-valuemax="60"><i id="recProgress"></i></div><div class="recbuttons"><button id="recStart" class="primary">開始錄音</button><button id="recStop" disabled>■ 停止</button><button id="recPlay" disabled>▶ 只聽我的聲音</button><button id="recSave" disabled>儲存錄音</button><button id="recNext">下一句 ▶ 播影片</button></div><div class="note" id="recHint">錄音由你自己按「停止」，不會因字幕太短而切掉尾音。按「下一句 ▶ 播影片」會先播放下一句，聽完再自行按「開始錄音」。</div><details><summary>我的完整配音與錄音管理</summary><div id="savedRecordings" class="note" style="margin-top:8px">尚無錄音</div></details></section></div>
+<section class="card transcriptCard"><div class="sideTop"><h3>完整逐字稿 <span class="tiny" id="count"></span></h3><button id="sideToggle">橫向隱藏</button></div><div class="transcriptTools"><input id="search" placeholder="搜尋英文或中文句子…" aria-label="搜尋逐字稿"><button id="onlyFav">☆ 收藏</button><button id="exportFav">匯出收藏</button></div><div class="transcript" id="transcript"><p class="note">匯入 SRT／VTT 字幕後，這裡會顯示逐句內容。</p></div><button id="expandTranscript" class="transcriptExpand">展開更多逐字稿</button></section>
+<button id="restoreSide" type="button" aria-label="顯示逐字稿">顯示逐字稿 ›</button><div class="bottomCards"><section class="card"><button class="collapse" id="sourceToggle">影片來源與字幕設定 <span>展開 ▾</span></button><div class="sectionBody hidden" id="sourceBody"><div class="row"><button class="sourceBtn active" data-source="local">本機影片</button><button class="sourceBtn" data-source="youtube">YouTube</button><button class="sourceBtn" data-source="bilibili">Bilibili</button></div><div id="localSource" class="field"><label>影片檔（留在你的裝置，不上傳）</label><input type="file" id="videoFile" accept="video/*"></div><div id="urlSource" class="field hidden"><label>影片網址</label><div class="row"><input id="videoUrl" placeholder="貼上影片網址"><button id="loadUrl">載入影片</button></div><p class="note">嵌入播放與字幕擷取是兩回事；平台可能禁止嵌入、限制跨域或要求登入。若沒有可讀取的字幕，請匯入 SRT／VTT。</p></div><div class="field"><label>英文字幕 SRT／VTT（也支援同一句中英雙語）</label><input type="file" id="enFile" accept=".srt,.vtt,text/plain"></div><div class="field"><label>可選：中文字幕 SRT／VTT</label><input type="file" id="zhFile" accept=".srt,.vtt,text/plain"></div><div id="calPanel" class="calPanel hidden"><div class="calHead"><strong>字幕同步</strong><button type="button" id="closeCal" aria-label="關閉">✕</button></div><p class="tiny">在影片前段按到對齊，跳到後段再調一次；網站會自動連接兩次調整，不用手算。</p><div class="calActions"><button type="button" id="calEarlier">← 字幕快一點</button><button type="button" id="calLater">字幕慢一點 →</button><button type="button" id="resetCal">重設</button></div><div class="tiny" id="calStatus" aria-live="polite">尚未調整</div></div><div class="settingsGrid"><div class="field hidden"><label>字幕時間偏移（秒）</label><input type="number" id="offset" step="0.1" value="0"></div><div class="field"><label>字幕校正</label><button id="openCal" type="button">字幕快慢調整</button></div><div class="field"><label>逐句循環間隔（秒）</label><input type="number" id="gap" min="0" step="0.5" value="0"></div><div class="field"><label>字幕大小</label><select id="fontSize"><option value="1">標準</option><option value="0.85">小</option><option value="1.2">大</option><option value="1.4">特大</option></select></div><div class="field"><label>重點字顏色</label><select id="accent"><option value="#ffd77e">琥珀金</option><option value="#b8edb3">鼠尾草綠</option><option value="#9bdbff">天空藍</option></select></div><div class="field"><label>字幕位置</label><select id="captionPos"><option value="7%">下方</option><option value="37%">中間</option><option value="72%">上方</option></select></div><div class="field"><label>播放模式</label><select id="playMode"><option value="continuous">連續播放</option><option value="pause">每句播完暫停</option><option value="loop">逐句循環</option></select></div></div><div class="row"><label class="toggle"><input id="follow" type="checkbox" checked> 逐字稿自動跟隨（只捲動清單）</label><label class="toggle"><input id="autoTranslate" type="checkbox"> 自動預先翻譯（需要網路）</label><span class="status" id="translationProgress" aria-live="polite"></span></div><div class="row"><button id="exportSrt">匯出目前字幕 SRT</button><button id="clearSub">清空字幕</button></div></div></section><section class="card" style="margin-top:10px"><button class="collapse" id="wordToggle">單字本與句子編輯 <span>展開 ▾</span></button><div id="wordBody" class="sectionBody hidden"><div id="vocabList" class="note">點影片英文字幕的單字，可查詢並收藏。</div><details><summary>編輯目前句子與時間</summary><div class="field"><label>英文</label><textarea id="editEn" rows="2"></textarea></div><div class="field"><label>中文</label><textarea id="editZh" rows="2"></textarea></div><div class="settingsGrid"><div class="field"><label>開始秒數</label><input id="editStart" type="number" step="0.1"></div><div class="field"><label>結束秒數</label><input id="editEnd" type="number" step="0.1"></div></div><button id="saveEdit">儲存本句修改</button></details></div></section></div></main>
+<div class="wordPopup hidden" id="wordPopup"><div class="row" style="justify-content:space-between"><strong class="wordHead" id="wordTitle"></strong><button id="wordClose">✕</button></div><p id="wordPhonetic" class="note"></p><p id="wordMeaning" class="note">點選「查字典」查看詞義與例句。</p><div class="toolbar"><button id="speakWord">發音</button><button id="dictWord">查字典</button><button id="saveWord">☆ 收藏</button><button id="wordRelated">同義／反義</button></div></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), store=(k,v)=>{try{localStorage.setItem('lingua2_'+k,JSON.stringify(v))}catch(e){}},read=(k,d)=>{try{return JSON.parse(localStorage.getItem('lingua2_'+k))??d}catch(e){return d}};
+let lines=read('lines',[]),zhLines=[],current=0,source='local',yt=null,biliFrame=null,ytReady=false,mediaUrl='',recorder=null,recChunks=[],recBlob=null,recTimer=0,recStarted=0,recStream=null,recKey='',selectedWord='',translationVisible=false,loopCurrent=false,lastTime=0,pausedAt=-1,recorded=read('recordings',{}),favorites=new Set(read('favorites',[])),vocab=read('vocab',{}),filterFav=false,playing=false;
+const video=$('localVideo');
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmt(t){t=Math.max(0,Number(t)||0);return String(Math.floor(t/60)).padStart(2,'0')+':'+String(Math.floor(t%60)).padStart(2,'0')}
+function parseSrt(txt){txt=txt.replace(/^\uFEFF/,'').replace(/\r/g,'');let chunks=txt.replace(/^WEBVTT[^\n]*\n/,'').split(/\n\s*\n/),out=[];for(const chunk of chunks){let a=chunk.trim().split('\n'),i=a.findIndex(x=>x.includes('-->'));if(i<0)continue;let m=a[i].match(/(\d\d:)?(\d\d):(\d\d)[.,](\d{1,3})\s*-->\s*(\d\d:)?(\d\d):(\d\d)[.,](\d{1,3})/);if(!m)continue;const sec=(h,mm,ss,ms)=>Number(h?.replace(':','')||0)*3600+Number(mm)*60+Number(ss)+Number(ms.padEnd(3,'0'))/1000;let text=a.slice(i+1).join('\n').replace(/<[^>]*>/g,'').replace(/\{\\[^}]+\}/g,'').trim();if(!text)continue;out.push({start:sec(m[1],m[2],m[3],m[4]),end:sec(m[5],m[6],m[7],m[8]),en:text,zh:'',id:out.length})}return out}
+function pairBilingual(s){let a=s.split(/\s*\/\s*|\s*\|\s*|\n/).filter(Boolean);if(a.length>1&&/[\u3400-\u9fff]/.test(a[a.length-1]))return {en:a.slice(0,-1).join(' '),zh:a[a.length-1]};return {en:s,zh:''}}
+function persist(){store('lines',lines);store('favorites',[...favorites]);store('vocab',vocab)}
+function getTime(){if(source==='local')return video.currentTime||0;if(source==='youtube'&&yt?.getCurrentTime)return yt.getCurrentTime()||0;return lastTime}
+function getDuration(){if(source==='local')return video.duration||0;if(source==='youtube'&&yt?.getDuration)return yt.getDuration()||0;return 0}
+function seek(t){t=Math.max(0,t);lastTime=t;if(source==='local'){try{video.currentTime=t}catch(e){}}else if(source==='youtube'&&yt?.seekTo)yt.seekTo(t,true);else if(source==='bilibili')$('recHint').textContent='Bilibili 嵌入播放器可能不允許外部逐句跳轉；可在影片內手動調整進度。';updateTime()}
+function pause(){if(source==='local')video.pause();else if(source==='youtube'&&yt?.pauseVideo)yt.pauseVideo();playing=false;setPlayIcon()}
+function play(){boundaryHold=false;pausedAt=-1;if(source==='local')video.play().catch(()=>{});else if(source==='youtube'&&yt?.playVideo)yt.playVideo();else if(source==='bilibili')$('recHint').textContent='請使用 Bilibili 影片內的播放按鈕。';playing=true;setPlayIcon()}
+function setPlayIcon(){$('playIcon').textContent=playing?'Ⅱ':'▶'}
+// Position-aware subtitle sync. Users simply nudge at the beginning and again later.
+let syncPoints=[],calMediaKey='';
+function mediaKey(){let src=source==='local'?($('videoFile').files?.[0]?.name||'local-video'):($('videoUrl').value.trim()||source);let sub=$('enFile').files?.[0]?.name||'saved-subtitles';return source+'|'+src+'|'+sub}
+function loadCalibration(){calMediaKey=mediaKey();let x=read('syncV3',{})[calMediaKey];syncPoints=Array.isArray(x)?x.filter(p=>Number.isFinite(p.t)&&Number.isFinite(p.shift)).sort((a,b)=>a.t-b.t):[];updateCalStatus()}
+function saveCalibration(){let all=read('syncV3',{});all[calMediaKey]=syncPoints;store('syncV3',all);updateCalStatus()}
+function shiftAt(t){if(!syncPoints.length)return Number($('offset').value||0);if(syncPoints.length===1)return syncPoints[0].shift;let i=syncPoints.findIndex(p=>p.t>=t);if(i===0)return syncPoints[0].shift;if(i<0)return syncPoints[syncPoints.length-1].shift;let a=syncPoints[i-1],b=syncPoints[i];return a.shift+(b.shift-a.shift)*(t-a.t)/(b.t-a.t)}
+function subtitleAt(t){return t+shiftAt(t)}
+function updateCalStatus(){let n=syncPoints.length,txt=n===0?'尚未調整':n===1?'已記住前段，後段不同步時再按一次':'已自動校正 '+n+' 個播放位置';if($('calStatus'))$('calStatus').textContent=txt;if($('syncHint'))$('syncHint').textContent=txt;if($('syncExact'))$('syncExact').value=shiftAt(getTime()).toFixed(1)}
+$('openCal').onclick=()=>{$('calPanel').classList.remove('hidden');updateCalStatus()};$('closeCal').onclick=()=>$('calPanel').classList.add('hidden');
+function nudgeSubtitle(delta){if(!lines.length)return alert('請先匯入字幕');if(source==='bilibili')return alert('Bilibili 嵌入播放器目前無法可靠取得播放時間');let t=getTime(),newShift=Math.round((shiftAt(t)+delta)*100)/100;let nearest=-1,distance=Infinity;syncPoints.forEach((p,i)=>{let d=Math.abs(p.t-t);if(d<distance){distance=d;nearest=i}});if(distance<=8){syncPoints[nearest]={t:syncPoints[nearest].t,shift:newShift}}else{syncPoints.push({t,shift:newShift});syncPoints.sort((a,b)=>a.t-b.t)}saveCalibration();renderCurrent()}
+$('syncExact').addEventListener('change',()=>{if(!lines.length)return;const v=Number($('syncExact').value);if(!Number.isFinite(v))return;const t=getTime();let closest=syncPoints.findIndex(p=>Math.abs(p.t-t)<=8);if(closest>=0)syncPoints[closest]={t,shift:v};else syncPoints.push({t,shift:v});syncPoints.sort((a,b)=>a.t-b.t);saveCalibration();renderCurrent()});
+$('calEarlier').onclick=$('syncFast').onclick=()=>nudgeSubtitle(-0.5);
+$('calLater').onclick=$('syncSlow').onclick=()=>nudgeSubtitle(0.5);
+function resetSync(){syncPoints=[];$('offset').value=0;saveCalibration();renderCurrent()}
+$('resetCal').onclick=$('syncReset').onclick=resetSync;
+loadCalibration();
+$('offset').addEventListener('change',()=>{syncPoints=[];saveCalibration()});
+// V3.4: one clock (the actual player time), one transition state.
+let seekGuardUntil=0, targetCue=-1, cueArmed=false, lastLoopSeek=0;
+let jumpPendingUntil=0, jumpTarget=0, stopAtCue=-1, lastFrameTime=-1;
+function videoTimeForSubtitle(cueTime){
+  // Monotone binary inversion; avoids unstable fixed-point iteration.
+  let low=0,high=Math.max(getDuration()||0,cueTime+120);
+  for(let i=0;i<24;i++){let mid=(low+high)/2;if(subtitleAt(mid)<cueTime)low=mid;else high=mid;}
+  return (low+high)/2;
+}
+function jumpToCue(n,autoplay=true){
+  if(!lines.length)return;
+  const index=Math.max(0,Math.min(lines.length-1,n));
+  current=index;boundaryHold=false;pausedAt=-1;cueArmed=false;stopAtCue=-1;
+  targetCue=index;
+  const target=videoTimeForSubtitle(lines[index].start);
+  jumpTarget=target;jumpPendingUntil=Date.now()+1800;
+  // Do not call updateTime synchronously while YouTube still reports its old position.
+  lastTime=target;
+  if(source==='local'){try{video.currentTime=target}catch(e){}}
+  else if(source==='youtube'&&yt?.seekTo){try{yt.seekTo(target,true)}catch(e){}}
+  renderCurrent();
+  if(autoplay)play();else pause();
+}
+function changeLine(n,autoplay=true){jumpToCue(n,autoplay)}
+function setSubtitleText(){let l=lines[current],mode=$('subtitleMode').value;if(!l||mode==='off'){$('overlay').classList.add('hidden');return}$('overlay').classList.remove('hidden');let en=mode==='zh'?'':l.en,zh=mode==='en'?'':l.zh;if(translationVisible&&mode==='en')zh=l.zh;let tokens=en.split(/(\s+)/);$('overlayEn').innerHTML=tokens.map(w=>/^\s+$/.test(w)?w:'<span class="word" data-word="'+escapeHtml(w.replace(/[^a-zA-Z'-]/g,''))+'">'+escapeHtml(w)+'</span>').join('');$('overlayZh').textContent=zh||'';$('overlayZh').style.display=zh?'block':'none';$('overlay').style.bottom=($('captionHeight')?.value||7)+'%';$('overlayEn').style.fontSize='calc(clamp(17px, 3.5vw, 30px) * '+$('fontSize').value+')';$('overlay').querySelectorAll('.word').forEach(el=>el.addEventListener('click',()=>openWord(el.dataset.word,el)));}
+function renderCurrent(){setSubtitleText();if(lines[current]&&!lines[current].zh)scheduleTranslations();$('count').textContent=lines.length?'· '+(current+1)+' / '+lines.length:'';renderTranscript(false);renderEdit();$('recPlay').disabled=!recorded[current];if(recorder?.state!=='recording')$('recStatus').textContent='第 '+(current+1)+' 句';}
+let transcriptExpanded=false;function renderTranscript(scroll=false){let term=$('search').value.trim().toLowerCase();let html='',count=0;for(let i=0;i<lines.length;i++){let l=lines[i];if(filterFav&&!favorites.has(i))continue;if(term&&!((l.en+' '+l.zh).toLowerCase().includes(term)))continue;if(!transcriptExpanded&&!term&&!filterFav&&Math.abs(i-current)>2)continue;count++;html+='<div class="line '+(i===current?'current':'')+'" data-i="'+i+'"><button class="star" data-star="'+i+'" title="收藏句子">'+(favorites.has(i)?'★':'☆')+'</button><small>'+(i+1)+' · '+fmt(l.start)+' – '+fmt(l.end)+'</small><div>'+escapeHtml(l.en)+'</div>'+(translationVisible&&l.zh?'<div class="translation">譯：'+escapeHtml(l.zh)+'</div>':'')+'</div>'}if(!count)html='<p class="note">沒有符合的句子。請先匯入字幕或調整搜尋。</p>';$('transcript').innerHTML=html;$('expandTranscript').textContent=transcriptExpanded?'收合逐字稿':'展開全部 '+lines.length+' 句';if(scroll&&$('follow').checked){let active=$('transcript').querySelector('.current');if(active){let parent=$('transcript');parent.scrollTop=active.offsetTop-parent.offsetTop-parent.clientHeight/2+active.clientHeight/2}}}
+$('transcript').addEventListener('click',e=>{let s=e.target.closest('[data-star]');if(s){let i=Number(s.dataset.star);favorites.has(i)?favorites.delete(i):favorites.add(i);persist();renderTranscript();return}let l=e.target.closest('[data-i]');if(l)changeLine(Number(l.dataset.i))});
+let lastPolledTime=null, boundaryHold=false;
+function findCueAt(subTime){
+  // Binary search by start, then check end; no per-cue seek conversion.
+  let lo=0,hi=lines.length-1,idx=-1;
+  while(lo<=hi){const m=(lo+hi)>>1;if(lines[m].start<=subTime){idx=m;lo=m+1}else hi=m-1}
+  if(idx<0)return -1;
+  return subTime<lines[idx].end?idx:-1;
+}
+function updateTime(){
+  const t=getTime(),dur=getDuration();
+  $('clock').textContent=fmt(t)+' / '+fmt(dur);
+  if(dur>0)$('seek').value=100*t/dur;
+  if(!lines.length)return;
+  const now=Date.now();
+  const mode=loopCurrent?'loop':$('quickPlay').value;
+  if(now<jumpPendingUntil){
+    // Ignore stale iframe times until seek has landed. Do not re-seek here.
+    if(Math.abs(t-jumpTarget)>1.2)return;
+    jumpPendingUntil=0;targetCue=-1;cueArmed=true;
+  }
+  const subTime=subtitleAt(t);
+  const idx=findCueAt(subTime);
+  if(boundaryHold&&mode==='pause')return;
+  if(idx>=0&&idx!==current){
+    current=idx;cueArmed=true;stopAtCue=-1;
+    setSubtitleText();$('count').textContent='· '+(current+1)+' / '+lines.length;
+    renderTranscript(true);renderEdit();scheduleTranslations();
+  }
+  const active=lines[current];
+  if(!active)return;
+  if(subTime>=active.start-0.15&&subTime<active.end-0.18)cueArmed=true;
+  if(playing&&cueArmed&&(mode==='pause'||mode==='loop')&&subTime>=active.end-0.08){
+    cueArmed=false;
+    if(mode==='pause'){
+      boundaryHold=true;pausedAt=current;pause();return;
+    }
+    if(now-lastLoopSeek>950){
+      lastLoopSeek=now;targetCue=current;
+      jumpTarget=videoTimeForSubtitle(active.start);
+      jumpPendingUntil=now+1800;
+      if(source==='local')video.currentTime=jumpTarget;
+      else if(source==='youtube'&&yt?.seekTo)yt.seekTo(jumpTarget,true);
+      return;
+    }
+  }
+  lastPolledTime=t;
+}
+setInterval(updateTime,250);video.addEventListener('play',()=>{playing=true;setPlayIcon()});video.addEventListener('pause',()=>{playing=false;setPlayIcon()});video.addEventListener('ended',()=>{playing=false;setPlayIcon()});
+$('playBtn').onclick=()=>playing?pause():play();$('prevBtn').onclick=()=>changeLine(current-1);$('nextBtn').onclick=()=>changeLine(current+1);$('loopBtn').onclick=()=>{cueArmed=false;boundaryHold=false;loopCurrent=!loopCurrent;$('loopBtn').classList.toggle('active',loopCurrent);$('playMode').value=loopCurrent?'loop':'continuous';$('quickPlay').value=$('playMode').value};$('translateBtn').onclick=()=>{translationVisible=!translationVisible;$('translateBtn').classList.toggle('active',translationVisible);renderCurrent();if(translationVisible)scheduleTranslations()};$('seek').oninput=e=>{boundaryHold=false;cueArmed=false;targetCue=-1;cueArmed=false;boundaryHold=false;lastPolledTime=null;let d=getDuration();if(d){const target=d*Number(e.target.value)/100;jumpTarget=target;jumpPendingUntil=Date.now()+1800;seek(target)}};$('subtitleMode').onchange=()=>{store('subtitleMode',$('subtitleMode').value);setSubtitleText();if(['zh','both'].includes($('subtitleMode').value))scheduleTranslations()};$('speedSelect').onchange=()=>{const s=Number($('speedSelect').value);video.playbackRate=s;if(source==='youtube'&&yt?.setPlaybackRate){try{yt.setPlaybackRate(s)}catch(e){console.warn('YouTube 不支援此速度',e)}}store('playbackSpeed',String(s))};$('speedSelect').value=localStorage.getItem('playbackSpeed')||'1';video.playbackRate=Number($('speedSelect').value);$('fullBtn').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else $('playerFrame').requestFullscreen?.().catch(()=>{})};
+$('captionHeight').value=read('captionHeight',7);$('captionHeight').oninput=()=>{store('captionHeight',$('captionHeight').value);setSubtitleText()};$('quickPlay').onchange=()=>{boundaryHold=false;pausedAt=-1;cueArmed=false;targetCue=-1;jumpPendingUntil=0;$('playMode').value=$('quickPlay').value;loopCurrent=$('quickPlay').value==='loop';$('loopBtn').classList.toggle('active',loopCurrent)};$('themeBtn').onclick=()=>{let n=!document.body.classList.contains('night');document.body.classList.toggle('night',n);store('night',n);$('themeBtn').textContent=n?'☀ 白天':'☾ 夜間'};if(read('night',false)){$('themeBtn').click()}$('subtitleMode').value=read('subtitleMode','en');$('quickPlay').value=$('playMode').value;function setSideHidden(hidden){document.body.classList.toggle('hideSide',hidden);$('sideToggle').textContent=hidden?'顯示逐字稿':'橫向隱藏';$('restoreSide').style.display=hidden?'block':'none'}$('sideToggle').onclick=()=>setSideHidden(!document.body.classList.contains('hideSide'));$('restoreSide').onclick=()=>setSideHidden(false);
+function togglePanel(btn,body){$(btn).onclick=()=>{$(body).classList.toggle('hidden');$(btn).querySelector('span').textContent=$(body).classList.contains('hidden')?'展開 ▾':'收合 ▴'}}togglePanel('sourceToggle','sourceBody');togglePanel('wordToggle','wordBody');
+function chooseSource(s){source=s;document.querySelectorAll('.sourceBtn').forEach(b=>b.classList.toggle('active',b.dataset.source===s));$('localSource').classList.toggle('hidden',s!=='local');$('urlSource').classList.toggle('hidden',s==='local');$('localVideo').classList.toggle('hidden',s!=='local');$('ytHolder').classList.add('hidden');$('biliHolder').classList.add('hidden');if(s!=='local')video.pause();$('empty').classList.toggle('hidden',s!=='local'||!!mediaUrl)}document.querySelectorAll('.sourceBtn').forEach(b=>b.onclick=()=>chooseSource(b.dataset.source));
+$('videoFile').onchange=e=>{let f=e.target.files?.[0];if(!f)return;loadCalibration();if(mediaUrl)URL.revokeObjectURL(mediaUrl);mediaUrl=URL.createObjectURL(f);chooseSource('local');video.src=mediaUrl;video.load();$('empty').classList.add('hidden')};
+function youtubeId(url){let m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/|live\/))([\w-]{11})/);if(!m){try{m=[0,new URL(url).searchParams.get('v')]}catch(e){}}return m?.[1]||''}
+function loadYouTube(id){$('ytHolder').classList.remove('hidden');$('ytHolder').innerHTML='<div id="ytPlayer"></div>';if(!window.YT?.Player){let sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc)}const init=()=>{yt=new YT.Player('ytPlayer',{videoId:id,playerVars:{playsinline:1,rel:0,origin:location.origin},events:{onReady:()=>{ytReady=true;try{yt.setPlaybackRate(Number($('speedSelect').value)||1)}catch(e){}},onStateChange:e=>{playing=e.data===YT.PlayerState.PLAYING;if(e.data===YT.PlayerState.PLAYING&&!boundaryHold)cueArmed=cueArmed||targetCue<0;setPlayIcon()}}})};if(window.YT?.Player)init();else window.onYouTubeIframeAPIReady=init}
+$('loadUrl').onclick=()=>{let url=$('videoUrl').value.trim();if(!url)return;loadCalibration();if(source==='youtube'){let id=youtubeId(url);if(!id)return alert('請貼上有效的 YouTube 影片網址');loadYouTube(id)}else{let id=(url.match(/BV[0-9A-Za-z]{10}/)||[])[0];if(!id)return alert('請貼上含 BV 編號的 Bilibili 網址');$('biliHolder').classList.remove('hidden');$('biliHolder').innerHTML='<iframe allowfullscreen allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" src="https://player.bilibili.com/player.html?bvid='+id+'&autoplay=0"></iframe>'} $('empty').classList.add('hidden');store('videoUrl',url)};
+async function readText(file){return file?await file.text():''}
+$('enFile').onchange=async e=>{let f=e.target.files?.[0];if(!f)return;loadCalibration();let raw=parseSrt(await readText(f));lines=raw.map((l,i)=>{let p=pairBilingual(l.en);return {...l,...p,id:i}});current=0;translationGeneration++;persist();renderCurrent();scheduleTranslations();$('transcript').scrollTop=0;alert('已匯入 '+lines.length+' 句字幕')};$('zhFile').onchange=async e=>{let f=e.target.files?.[0];if(!f)return;zhLines=parseSrt(await readText(f));for(let l of lines){let near=zhLines.find(z=>Math.abs(z.start-l.start)<1.5);if(near)l.zh=near.en}persist();renderCurrent();scheduleTranslations();alert('已配對中文字幕')};
+$('expandTranscript').onclick=()=>{transcriptExpanded=!transcriptExpanded;renderTranscript()};$('search').oninput=()=>renderTranscript();$('onlyFav').onclick=()=>{filterFav=!filterFav;$('onlyFav').classList.toggle('active',filterFav);renderTranscript()};$('exportFav').onclick=()=>download('lingua_favorites.txt',lines.filter((l,i)=>favorites.has(i)).map(l=>l.en+'\n'+l.zh).join('\n\n'));$('clearSub').onclick=()=>{if(confirm('確定清除目前字幕？')){lines=[];translationGeneration++;persist();renderCurrent()}};
+function download(name,txt,type='text/plain'){let a=document.createElement('a'),url=URL.createObjectURL(new Blob([txt],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}function stamp(s){let h=Math.floor(s/3600),m=Math.floor(s%3600/60),ss=Math.floor(s%60),ms=Math.round((s%1)*1000);return [h,m,ss].map(x=>String(x).padStart(2,'0')).join(':')+','+String(ms).padStart(3,'0')}$('exportSrt').onclick=()=>download('lingua_subtitles.srt',lines.map((l,i)=>(i+1)+'\n'+stamp(l.start)+' --> '+stamp(l.end)+'\n'+l.en+(l.zh?'\n'+l.zh:'')).join('\n\n'));
+function renderEdit(){let l=lines[current]||{};$('editEn').value=l.en||'';$('editZh').value=l.zh||'';$('editStart').value=l.start??'';$('editEnd').value=l.end??''}$('saveEdit').onclick=()=>{let l=lines[current];if(!l)return;let start=Number($('editStart').value),end=Number($('editEnd').value);if(!(end>start))return alert('結束時間必須晚於開始時間');Object.assign(l,{en:$('editEn').value,zh:$('editZh').value,start,end});persist();renderCurrent();scheduleTranslations();alert('已儲存')};
+function openWord(w,el){if(!w)return;pause();selectedWord=w.toLowerCase();$('wordTitle').textContent=selectedWord;$('wordMeaning').textContent='正在查詢詞義…';$('wordPhonetic').textContent='';lookupWord(selectedWord);$('wordPopup').classList.remove('hidden');$('saveWord').textContent=vocab[selectedWord]?'★ 已收藏':'☆ 收藏單字';document.querySelectorAll('.word.chosen').forEach(x=>x.classList.remove('chosen'));el?.classList.add('chosen');if(el)el.style.color=$('accent').value}
+async function lookupWord(w){
+ try{const r=await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+encodeURIComponent(w));if(!r.ok)throw Error('not found');const a=await r.json(),entry=a[0];if(selectedWord!==w)return;const phon=entry.phonetic||entry.phonetics?.find(x=>x.text)?.text||'';$('wordPhonetic').textContent=phon?'音標 '+phon+'（英語音標，非保證 KK）':'暫無音標';const meanings=(entry.meanings||[]).slice(0,2).map(m=>m.partOfSpeech+' · '+(m.definitions?.[0]?.definition||'')).join('；');$('wordMeaning').textContent=meanings||'暫無詞義';$('wordRelated').onclick=()=>{let syn=[...new Set(entry.meanings.flatMap(m=>m.synonyms||[]))].slice(0,6),ant=[...new Set(entry.meanings.flatMap(m=>m.antonyms||[]))].slice(0,6);$('wordMeaning').textContent='同義：'+(syn.join('、')||'暫無')+'；反義：'+(ant.join('、')||'暫無')};
+ try{let tr=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(w)+'&langpair=en|zh-TW');let j=await tr.json();if(selectedWord===w&&j.responseData?.translatedText)$('wordMeaning').textContent='中文：'+j.responseData.translatedText+'\n'+$('wordMeaning').textContent}catch(e){}
+ }catch(e){if(selectedWord===w){$('wordMeaning').textContent='暫時無法取得詞義，可點「查字典」查看。';$('wordPhonetic').textContent=''}}
+}
+$('wordClose').onclick=()=>$('wordPopup').classList.add('hidden');$('speakWord').onclick=()=>{if(!('speechSynthesis'in window))return alert('此瀏覽器不支援發音');let u=new SpeechSynthesisUtterance(selectedWord);u.lang='en-US';speechSynthesis.speak(u)};$('dictWord').onclick=()=>window.open('https://dictionary.cambridge.org/dictionary/english-chinese-traditional/'+encodeURIComponent(selectedWord),'_blank','noopener');$('saveWord').onclick=()=>{if(vocab[selectedWord])delete vocab[selectedWord];else vocab[selectedWord]={date:new Date().toISOString()};persist();$('saveWord').textContent=vocab[selectedWord]?'★ 已收藏':'☆ 收藏單字';renderVocab()};function renderVocab(){$('vocabList').innerHTML=Object.keys(vocab).length?Object.keys(vocab).map(w=>'<button class="pill" data-vocab="'+escapeHtml(w)+'">'+escapeHtml(w)+'</button>').join(' '):'尚無收藏單字';$('vocabList').querySelectorAll('[data-vocab]').forEach(b=>b.onclick=()=>openWord(b.dataset.vocab))}renderVocab();
+// V2.6: preload translations from the complete transcript, prioritize current and upcoming lines.
+// Free public translation endpoints are rate-limited; no request can guarantee immediate results.
+let translationGeneration=0, translationRunning=0, translationRefresh=null;
+const translationPending=new Set(), translationFailures=new Map();
+const translationCache=read('translationCache',{});
+function translationKey(l){return (l?.en||'').trim().slice(0,400)}
+function translationStatus(){
+  const done=lines.filter(l=>!!l.zh).length;
+  const el=$('translationProgress');
+  if(el)el.textContent=lines.length?'翻譯準備 '+done+' / '+lines.length+(translationRunning?' · 背景處理中':''):'';
+}
+function applyTranslationCache(){
+  let changed=false;
+  for(const l of lines){const key=translationKey(l);if(!l.zh&&key&&translationCache[key]){l.zh=translationCache[key];changed=true}}
+  if(changed)persist();
+  translationStatus();
+}
+function scheduleTranslations(){
+  if(!$('autoTranslate').checked||!lines.length)return;
+  applyTranslationCache();
+  // Keep two requests in flight, avoiding a burst of hundreds of requests.
+  while(translationRunning<2){
+    const order=[];
+    for(let i=current;i<Math.min(lines.length,current+18);i++)order.push(i);
+    for(let i=0;i<lines.length;i++)order.push(i);
+    const idx=order.find(i=>{
+      const l=lines[i],key=translationKey(l);
+      return key&&!l.zh&&!translationPending.has(key)&&(!translationFailures.has(key)||Date.now()>translationFailures.get(key));
+    });
+    if(idx===undefined)break;
+    const l=lines[idx],key=translationKey(l),gen=translationGeneration;
+    translationPending.add(key);translationRunning++;
+    translateLine(l,key,gen).finally(()=>{
+      translationPending.delete(key);translationRunning--;
+      translationStatus();
+      if(gen===translationGeneration&&$('autoTranslate').checked){
+        clearTimeout(translationRefresh);
+        translationRefresh=setTimeout(scheduleTranslations,650);
+      }
+    });
+  }
+  translationStatus();
+}
+async function translateLine(l,key,gen){
+  try{
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),9000);
+    let r;
+    try{r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(key)+'&langpair=en|zh-TW',{signal:controller.signal})}
+    finally{clearTimeout(timeout)}
+    if(!r.ok)throw Error('HTTP '+r.status);
+    const j=await r.json();
+    const translated=(j.responseData?.translatedText||'').trim();
+    if(j.responseStatus!==200||!translated||/MYMEMORY WARNING|QUERY LENGTH LIMIT|INVALID LANGUAGE PAIR/i.test(translated))throw Error('translation unavailable');
+    if(gen!==translationGeneration)return;
+    translationCache[key]=translated;
+    l.zh=translated;
+    // Save a bounded cache; avoid localStorage quota failures on long transcripts.
+    const keys=Object.keys(translationCache);
+    if(keys.length>1200)for(const k of keys.slice(0,keys.length-1200))delete translationCache[k];
+    store('translationCache',translationCache);
+    persist();
+    if(lines[current]===l)setSubtitleText();
+    if(Math.abs(lines.indexOf(l)-current)<=2||transcriptExpanded)renderTranscript(false);
+  }catch(e){
+    // Do not retry endlessly on a limited free API. User can import a Chinese SRT.
+    translationFailures.set(key,Date.now()+60000);
+  }
+}
+function translateCurrent(){scheduleTranslations()}
+$('autoTranslate').checked=read('autoTranslate',true);
+$('autoTranslate').onchange=()=>{store('autoTranslate',$('autoTranslate').checked);if($('autoTranslate').checked)scheduleTranslations();translationStatus()};
+applyTranslationCache();
+let recDeadline=0,recMaxMs=0,recStopTimeout=null;
+function sentenceRecordMs(){
+  const line=lines[current];
+  if(!line)return 6000;
+  const duration=Math.max(0,(Number(line.end)-Number(line.start))*1000);
+  return Math.min(60000,Math.max(4000,duration+2000));
+}
+function updateRec(){
+  if(!recorder||recorder.state!=='recording')return;
+  const elapsed=(Date.now()-recStarted)/1000;
+  $('recStatus').textContent='錄音中 · '+elapsed.toFixed(1)+' 秒（手動停止）';
+  $('recProgress').style.width='100%';
+  $('recProgress').setAttribute('aria-valuenow','60');
+  recTimer=requestAnimationFrame(updateRec);
+}
+async function startRec(){
+  if(recorder?.state==='recording')return;
+  if(!lines.length)return alert('請先匯入字幕，才能依句子時間自動停止。');
+  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)return alert('此瀏覽器不支援錄音，請使用 Safari 並允許麥克風。');
+  try{
+    recStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    recChunks=[];recBlob=null;
+    recorder=new MediaRecorder(recStream);
+    recorder.ondataavailable=e=>{if(e.data.size)recChunks.push(e.data)};
+    recorder.onstop=()=>{
+      recBlob=new Blob(recChunks,{type:recorder.mimeType||'audio/webm'});
+      $('recSave').disabled=false;$('recPlay').disabled=false;
+      $('recStatus').textContent='錄音完成 · 可單獨聽我的聲音';
+      recStream?.getTracks().forEach(t=>t.stop());
+      cancelAnimationFrame(recTimer);
+      clearTimeout(recStopTimeout);
+      $('recProgress').style.width='0%';
+    };
+    recMaxMs=0;
+    recKey=String(current);
+    pause();
+    recorder.start();
+    recStarted=Date.now();recDeadline=0;
+    $('recStart').disabled=true;$('recStop').disabled=false;$('recPlay').disabled=true;$('recSave').disabled=true;
+    $('recQuick').classList.add('active');
+    $('recProgress').style.width='100%';
+    // 手動停止錄音：不以字幕結束時間截斷尾音。
+    updateRec();
+  }catch(e){recStream?.getTracks().forEach(t=>t.stop());alert('無法開啟麥克風：'+e.message)}
+}
+function stopRec(){
+  clearTimeout(recStopTimeout);
+  cancelAnimationFrame(recTimer);
+  if(recorder?.state==='recording')recorder.stop();
+  $('recStart').disabled=false;$('recStop').disabled=true;
+  $('recQuick').classList.remove('active');
+}
+$('recStart').onclick=startRec;$('recStop').onclick=stopRec;
+$('recQuick').onclick=()=>recorder?.state==='recording'?stopRec():startRec();
+$('recNext').onclick=()=>{if(recorder?.state==='recording')stopRec();if(current>=lines.length-1)return alert('已經是最後一句');changeLine(current+1,true);$('recStatus').textContent='先聽影片，準備好再按開始錄音';};
+let dbPromise=null;function db(){if(!window.indexedDB)return Promise.reject(new Error('不支援 IndexedDB'));if(dbPromise)return dbPromise;dbPromise=new Promise((res,rej)=>{let r=indexedDB.open('LinguaStudioRecordings',1);r.onupgradeneeded=()=>r.result.createObjectStore('recordings');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});return dbPromise}async function putRecording(key,blob){let d=await db();return new Promise((res,rej)=>{let tx=d.transaction('recordings','readwrite');tx.objectStore('recordings').put(blob,key);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}async function getRecording(key){let d=await db();return new Promise((res,rej)=>{let r=d.transaction('recordings').objectStore('recordings').get(key);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+$('recSave').onclick=async()=>{if(!recBlob)return;try{await putRecording(recKey,recBlob);recorded[recKey]=true;store('recordings',recorded);$('recStatus').textContent='已儲存第 '+(Number(recKey)+1)+' 句';renderRecordings()}catch(e){alert('儲存失敗：'+e.message)}};$('recPlay').onclick=async()=>{pause();try{let blob=(recKey===String(current)?recBlob:null)||await getRecording(String(current));if(!blob)return alert('這句尚無錄音');let u=URL.createObjectURL(blob),a=new Audio(u);a.onended=()=>URL.revokeObjectURL(u);a.play()}catch(e){alert('播放錄音失敗：'+e.message)}};function renderRecordings(){let ks=Object.keys(recorded);$('savedRecordings').innerHTML=ks.length?ks.map(k=>'<button data-record="'+k+'">第 '+(Number(k)+1)+' 句 ▶</button>').join(' '):'尚無錄音';$('savedRecordings').querySelectorAll('[data-record]').forEach(b=>b.onclick=async()=>{let blob=await getRecording(b.dataset.record);if(blob){let u=URL.createObjectURL(blob),a=new Audio(u);a.onended=()=>URL.revokeObjectURL(u);a.play()}})}renderRecordings();
+$('helpBtn').onclick=()=>alert('使用方式：① 展開「影片來源與字幕設定」匯入影片及 SRT／VTT。② 字幕會顯示在影片內，可點單字查字典。③ 播放鍵旁可逐句跳轉、循環、錄音、顯示翻譯。④ 橫向可隱藏右側逐字稿。\n\nYouTube 與 Bilibili 是否允許嵌入及控制，依影片與平台政策而定。');$('videoUrl').value=read('videoUrl','');renderCurrent();scheduleTranslations();if(lines.length)$('empty').innerHTML='<strong>字幕已恢復</strong><p>請載入影片，開始跟讀</p>';
+</script></body></html>
